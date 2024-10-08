@@ -1,0 +1,46 @@
+// Получаем элементы из DOM
+const flowerContainer = document.getElementById('flower-container');
+const petalsDisplay = document.getElementById('petals');
+const inviteButton = document.getElementById('invite-button');
+const refreshButton = document.getElementById('refresh-button');
+
+// Имитируем данные пользователя
+let user = {
+    petals: 5, // Количество лепестков
+    referralLink: "https://t.me/flowers_coin_bot?start=12345" // Пример ссылки
+};
+
+// Функция для генерации цветка с лепестками
+function displayFlower() {
+    flowerContainer.innerHTML = ''; // Очищаем контейнер
+    for (let i = 0; i < user.petals; i++) {
+        let petal = document.createElement('img');
+        petal.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/White_petal_flower.png/100px-White_petal_flower.png';
+        flowerContainer.appendChild(petal);
+    }
+    petalsDisplay.innerText = user.petals;
+}
+
+// Функция для генерации новой реферальной ссылки и уменьшения количества лепестков
+function inviteFriend() {
+    if (user.petals > 0) {
+        user.petals -= 1;
+        alert(`Вы пригласили друга! Ваша ссылка: ${user.referralLink}`);
+        displayFlower();
+    } else {
+        alert("У вас недостаточно лепестков!");
+    }
+}
+
+// Обновление информации о цветке
+function refreshFlower() {
+    user.petals = 5; // Можно запросить данные с сервера для реальной информации
+    displayFlower();
+}
+
+// Обработчики событий для кнопок
+inviteButton.addEventListener('click', inviteFriend);
+refreshButton.addEventListener('click', refreshFlower);
+
+// Начальная отрисовка цветка
+displayFlower();
